@@ -1,65 +1,55 @@
 import React, {Component} from 'react';
-import { SafeAreaView, TouchableOpacity, View, Text, TextInput, Image, ScrollView, KeyboardAvoidingView } from 'react-native';
-import styles from '../styles/style';
+import { SafeAreaView, TouchableOpacity, View, Text, TextInput, Image, ScrollView, KeyboardAvoidingView, Alert, ImageBackground } from 'react-native';
+import styles from '../styles/registerStyle';
 import { useState, useEffect, useReducer }from "react";
 import { GoogleSignin, statusCodes, GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import {Picker} from '@react-native-picker/picker';
 
 export default function RegistrationScreen({navigation}) {
 
     const [firstName, setFirstName] = useState()
     const [lastName, setLastName] = useState()
     const [role, setRole] = useState()
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    const [uid, setUid] = useState();
 
     const [loggedIn, setloggedIn] = useState(false);
     // const [userInfo, setuserInfo] = useState([]);
 
-    //Sign in using the Firebase Google auth built in function 
-    const register_user = async () => {
-        try {
-            await GoogleSignin.hasPlayServices();
-            const {accessToken, idToken} = await GoogleSignin.signIn();
-            setloggedIn(true);
-            const credential = auth.GoogleAuthProvider.credential(
-                idToken,
-                accessToken,
-            );
-            //update user information
-            //need to get UID to set up this information. HOW???
-            firestore().doc('users/' + idToken).set({
-                  role: role,
-                  firstName: firstName,
-                  lastName: lastName
+    //Register a new user with email and password   
+    registerUser = () => {
+        if(email === '' && password === '') {
+        Alert.alert('Enter details to signup!')
+        } 
+        auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then((res) => {
+            res.user.updateProfile({
+            displayName: firstName + '' + lastName,
+            email: email
             })
-            await auth().signInWithCredential(credential).then(navigation.navigate("Home"));
-            // navigation.navigate("Home");
-        } catch (error) {
-            if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-            // user cancelled the login flow
-            } else if (error.code === statusCodes.IN_PROGRESS) {
-            // operation (e.g. sign in) is in progress already
-            } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-            // play services not available or outdated
-            } else {
-            // some other error happened
-            }
+            console.log('User registered successfully!')
+            firestore().collection('users').doc(res.user.uid).set({
+                role: role
+            })
+            setUid(res.user.uid)
+            navigation.navigate("Home", {
+                uid: uid,
+                role: role
+            })
+        })
+        .catch(error => console.log(error))      
         }
-    };
+    
 
-    useEffect(() => {
-        GoogleSignin.configure({
-            scopes: ['email'], // what API you want to access on behalf of the user, default is email and profile
-            webClientId:
-            'secret', // client ID of type WEB for your server (needed to verify user ID and offline access)
-            offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
-        });
-    }, []);
-
+   
     return (
         
        <View>
-            <Text style={styles.info_text}> Please enter the following information </Text>
+            <ImageBackground source={require('../images/ec530-register.png')} style={{width: '100%', height: '100%', resizeMode:'contain'}}  >
             <TextInput
                 style = {styles.textInput}
                 placeholder = 'First Name'
@@ -68,43 +58,70 @@ export default function RegistrationScreen({navigation}) {
                 value = {firstName}
                 keyboardType = 'default'
                 onChangeText = {firstName => {
-                    setFirstName( {firstName} )
+                    setFirstName( firstName )
                 }}
                 maxLength = {20}
             />
             <TextInput
-                style = {styles.textInput}
+                style = {styles.textInput2}
                 placeholder = 'Last Name'
                 placeholderTextColor = '#000'
                 textAlign ='left'
                 keyboardType = 'default'
                 value = {lastName}
                 onChangeText = {lastName => {
-                    setLastName( {lastName} )
+                    setLastName( lastName )
                 }}
                 maxLength = {20}
             />
             {/* this should be a drop down option menu */}
+            <View style={styles.switchRow}>
+                <View style={{flex:.3}}>
+                    <Text style={styles.info_text2}>Role</Text>
+                </View>
+                <View style={styles.picker}>
+                    <Picker 
+                        selectedValue={role}
+                        onValueChange={(itemValue, itemIndex) =>
+                            setRole(itemValue)
+                        }>
+                        <Picker.Item label='Patient' value={'Patient'}/>
+                        <Picker.Item label='Nurse' value={'Nurse'}/>
+                        <Picker.Item label='Doctor' value={'Doctor'}/>
+                    </Picker>
+                </View>
+            </View>
             <TextInput 
-                style = {styles.textInput}
-                placeholder = 'Role'
+                style = {styles.textInput2}
+                placeholder = 'Email address'
+                autoCapitalize = 'none'
                 placeholderTextColor = '#000'
                 textAlign ='left'
                 keyboardType = 'default'
-                value = {role}
-                onChangeText = {role => {
-                    setRole( {role} )
+                value = {email}
+                onChangeText = {email => {
+                    setEmail( email)
                 }}
-                maxLength = {20}
+            />
+            <TextInput 
+                style = {styles.textInput2}
+                placeholder = 'Password'
+                placeholderTextColor = '#000'
+                textAlign ='left'
+                keyboardType = 'default'
+                value = {password}
+                onChangeText = {password => {
+                    setPassword( password )
+                }}
             />
             <TouchableOpacity
                 style = {[styles.button, {marginTop: 20}]}
-                onPress = {register_user}>
+                onPress = {registerUser}>
                     <Text style={styles.text}>
                     Complete Registration
                     </Text>
             </TouchableOpacity>
-            
+            </ImageBackground>
         </View>
     )
   

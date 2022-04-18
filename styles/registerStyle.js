@@ -17,8 +17,8 @@ export default StyleSheet.create({
     flexDirection: 'row', 
     alignItems: 'center',
     justifyContent: 'space-around',
-    marginTop: 15,
-    marginBottom: 20,
+    marginTop: 0,
+    marginBottom:0,
   },
   checkBoxRow: {
     // flex: 1,
@@ -33,10 +33,10 @@ export default StyleSheet.create({
   textInput: {
     marginLeft: 30,
     marginRight: 30,
-    marginTop: 200,
+    marginTop: 150,
     height: 48,
     borderColor: '#555',
-    borderWidth: 2,
+    borderWidth: 1,
     borderRadius: 5,
     color: 'black',
     fontSize: 16,
@@ -73,6 +73,15 @@ export default StyleSheet.create({
     fontSize: 24,
     marginBottom: 10,
     marginTop: 150,
+    fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
+    fontWeight: 'bold',
+    color: 'black',
+  },
+  info_text2: {
+    textAlign: 'center',
+    fontSize: 24,
+    marginBottom: 10,
+    marginTop: 20,
     fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-medium',
     fontWeight: 'bold',
     color: 'black',
@@ -128,4 +137,10 @@ export default StyleSheet.create({
     borderWidth: 2,
     borderRadius: 5
   },
+  picker: {
+    flex: 0.3,
+    backgroundColor: 'rgba(255,255,255, 0.8)',
+    borderRadius: 30,
+    marginTop: 10
+  }
 });

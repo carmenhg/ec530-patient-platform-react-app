@@ -14,6 +14,7 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		87DB4853BCF1C5168A964AA3 /* libPods-monitor_patient_platform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F201A6C672D629E8F441D4E /* libPods-monitor_patient_platform.a */; };
 		E3777D422460A48D780ECCF1 /* libPods-monitor_patient_platform-monitor_patient_platformTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7D4084EC31659C8B738F8E /* libPods-monitor_patient_platform-monitor_patient_platformTests.a */; };
+		EB2AA73D2800BA0F00AC6FED /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB2AA73C2800BA0F00AC6FED /* HealthKit.framework */; };
 		EB98E1DB27F4A54B000E4F2B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB98E1DA27F4A54B000E4F2B /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +45,8 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = monitor_patient_platform/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C0DE25B0ABBB90E839781ABF /* Pods-monitor_patient_platform.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-monitor_patient_platform.release.xcconfig"; path = "Target Support Files/Pods-monitor_patient_platform/Pods-monitor_patient_platform.release.xcconfig"; sourceTree = "<group>"; };
 		C63C24CA983FC929414391D9 /* Pods-monitor_patient_platform-monitor_patient_platformTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-monitor_patient_platform-monitor_patient_platformTests.release.xcconfig"; path = "Target Support Files/Pods-monitor_patient_platform-monitor_patient_platformTests/Pods-monitor_patient_platform-monitor_patient_platformTests.release.xcconfig"; sourceTree = "<group>"; };
+		EB2AA73B2800BA0F00AC6FED /* monitor_patient_platform.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = monitor_patient_platform.entitlements; path = monitor_patient_platform/monitor_patient_platform.entitlements; sourceTree = "<group>"; };
+		EB2AA73C2800BA0F00AC6FED /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		EB98E1DA27F4A54B000E4F2B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -62,6 +65,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				87DB4853BCF1C5168A964AA3 /* libPods-monitor_patient_platform.a in Frameworks */,
+				EB2AA73D2800BA0F00AC6FED /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +103,7 @@
 		13B07FAE1A68108700A75B9A /* monitor_patient_platform */ = {
 			isa = PBXGroup;
 			children = (
+				EB2AA73B2800BA0F00AC6FED /* monitor_patient_platform.entitlements */,
 				EB98E1DA27F4A54B000E4F2B /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -113,6 +118,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EB2AA73C2800BA0F00AC6FED /* HealthKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				6F201A6C672D629E8F441D4E /* libPods-monitor_patient_platform.a */,
 				6C7D4084EC31659C8B738F8E /* libPods-monitor_patient_platform-monitor_patient_platformTests.a */,
@@ -468,7 +474,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = monitor_patient_platform/monitor_patient_platform.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = M2W9L28GRD;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = monitor_patient_platform/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -494,7 +502,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = monitor_patient_platform/monitor_patient_platform.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = M2W9L28GRD;
 				INFOPLIST_FILE = monitor_patient_platform/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
